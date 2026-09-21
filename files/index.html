@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sven — Développeur full-stack à Genève</title>
+<meta name="description" content="Portfolio de Sven, développeur full-stack JavaScript à Genève. Projets : Hive, plateforme de mise en relation autour de projets, et Enosis, marque de vêtements de musculation.">
+<meta name="theme-color" content="#1D2224">
+<meta property="og:title" content="Sven — Développeur full-stack à Genève">
+<meta property="og:description" content="Applications web complètes : interface, API, base de données et monitoring.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --mist:#EDEFEA; --paper:#F7F8F5; --ink:#1D2224; --slate:#4A5256; --line:#D6DAD3;
+  --sage:#3E5E4B; --sage-soft:#DCE5DC; --dusk:#B98B6E;
+  --hive-bg:#14100C; --hive-green:#1FBF62;
+  --serif:'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --sans:'Geist', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --pad:clamp(20px, 5.5vw, 80px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--sage);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--paper);padding:10px 16px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .35s var(--ease),box-shadow .35s var(--ease),color .35s;color:#fff}
+.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav.scrolled{background:rgba(237,239,234,.78);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);box-shadow:0 1px 0 rgba(29,34,36,.08);color:var(--ink)}
+.brand{font-family:var(--serif);font-size:28px;text-decoration:none;letter-spacing:.01em;line-height:1}
+.nav-links{display:flex;align-items:center;gap:36px;font-size:15px}
+.nav-links a{text-decoration:none;opacity:.86;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.pill{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 20px;border-radius:999px;border:1px solid currentColor;text-decoration:none;font-weight:500;font-size:15px;opacity:1 !important;transition:background .25s,color .25s,border-color .25s}
+.nav .pill:hover{background:#fff;color:var(--ink);border-color:#fff}
+.nav.scrolled .pill:hover{background:var(--ink);color:var(--mist);border-color:var(--ink)}
+.burger{display:none;width:44px;height:44px;border:0;background:transparent;color:inherit;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.burger span{display:block;width:22px;height:1.5px;background:currentColor;position:relative;transition:transform .3s var(--ease)}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:22px;height:1.5px;background:currentColor;transition:transform .3s var(--ease)}
+.burger span::before{top:-7px}.burger span::after{top:7px}
+.menu-open .burger span{background:transparent}
+.menu-open .burger span::before{transform:translateY(7px) rotate(45deg)}
+.menu-open .burger span::after{transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:40;background:var(--ink);color:var(--mist);display:flex;flex-direction:column;justify-content:center;padding:96px var(--pad) calc(48px + env(safe-area-inset-bottom,0px));gap:8px;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+.menu-open .mobile-menu{opacity:1;visibility:visible}
+.mobile-menu a{font-family:var(--serif);font-size:48px;line-height:1.2;text-decoration:none}
+.mobile-menu .small{font-family:var(--sans);font-size:16px;margin-top:32px;opacity:.75}
+.menu-open .nav{color:var(--mist);background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* HERO */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:var(--ink);color:#fff}
+.hero-media{position:absolute;inset:-6% 0 0 0;will-change:transform}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:60% 60%;animation:settle 2.8s var(--ease) both}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,18,20,.5) 0%,rgba(15,18,20,0) 24%,rgba(15,18,20,0) 42%,rgba(15,18,20,.82) 100%);pointer-events:none}
+.hero-content{position:absolute;z-index:2;left:0;right:0;bottom:clamp(40px,9vh,104px)}
+.hero-grid{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+.hero h1{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,108px);line-height:.97;letter-spacing:-.02em;max-width:none}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .line span{display:block;animation:rise 1.1s var(--ease) both}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+.hero h1 .line:nth-child(3) span{animation-delay:.24s}
+.hero-sub{margin:28px 0 0;max-width:34em;font-size:clamp(16px,1.4vw,19px);font-weight:300;color:rgba(255,255,255,.86);animation:fade 1s .6s var(--ease) both}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;animation:fade 1s .75s var(--ease) both}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;transition:background .25s,color .25s,border-color .25s,transform .25s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-light{background:#fff;color:var(--ink)}.btn-light:hover{background:var(--sage-soft)}
+.btn-ghost{border:1px solid rgba(255,255,255,.55);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn-dark{background:var(--ink);color:var(--mist)}.btn-dark:hover{background:var(--sage)}
+.btn-line{border:1px solid var(--ink);color:var(--ink)}.btn-line:hover{background:var(--ink);color:var(--mist)}
+.cue{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.78);text-decoration:none;flex-shrink:0;animation:fade 1s 1s both}
+.cue i{width:26px;height:42px;border:1px solid rgba(255,255,255,.6);border-radius:13px;display:flex;justify-content:center;padding-top:8px}
+.cue i::after{content:"";width:3px;height:8px;border-radius:2px;background:#fff;animation:cue 1.8s 1.6s ease-in-out infinite both}
+@keyframes settle{from{transform:scale(1.1)}to{transform:scale(1)}}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes cue{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+
+/* SECTIONS */
+section{position:relative}
+.sec{padding:clamp(88px,12vw,160px) 0 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)}
+.kicker{font-size:15px;color:var(--sage);font-weight:500;margin:0 0 10px}
+h2{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.6vw,76px);line-height:1;letter-spacing:-.02em}
+h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.05;letter-spacing:-.01em}
+h4{margin:0 0 14px;font-size:15px;font-weight:600;letter-spacing:.01em}
+.lede{max-width:30em;color:var(--slate);margin:0}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* PROJECT: HIVE */
+.project{background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.project-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.stage{background:#E3E6E0;padding:clamp(20px,4vw,48px);display:flex;align-items:center}
+.browser{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(20,24,26,.55);border:1px solid rgba(0,0,0,.08);transition:transform .8s var(--ease)}
+.project:hover .browser{transform:translateY(-6px)}
+.bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#221C16}
+.bar b{width:10px;height:10px;border-radius:50%;background:#3E362D}
+.bar em{margin-left:12px;flex:1;height:22px;border-radius:6px;background:#2E271F;color:#A89E90;font-style:normal;font-size:12px;display:flex;align-items:center;padding-left:12px}
+.app{background:var(--hive-bg);color:#F2EDE6;padding:clamp(22px,4vw,48px);min-height:clamp(260px,32vw,400px);display:flex;flex-direction:column;justify-content:space-between;gap:24px;position:relative;overflow:hidden}
+.app::before{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(31,191,98,.22),rgba(31,191,98,0) 70%)}
+.app-top{display:flex;align-items:center;justify-content:space-between;position:relative}
+.app-logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
+.app-logo img{width:28px;height:28px}
+.app-nav{display:flex;gap:18px;font-size:13px;color:#B8AFA3}
+.app-badge{display:inline-block;font-size:12px;color:var(--hive-green);border:1px solid rgba(31,191,98,.45);border-radius:999px;padding:4px 12px;margin-bottom:14px}
+.app-title{font-family:var(--sans);font-weight:600;font-size:clamp(22px,2.6vw,36px);line-height:1.12;letter-spacing:-.02em;max-width:17ch;position:relative}
+.app-title span{color:var(--hive-green)}
+.app-cta{display:flex;gap:10px;position:relative}
+.app-cta span{font-size:12px;padding:9px 14px;border-radius:999px;background:var(--hive-green);color:#07140C;font-weight:600}
+.app-cta span+span{background:transparent;color:#F2EDE6;border:1px solid #4A4036}
+.project-info{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:22px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;font-size:14px;color:var(--slate)}
+.live{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;background:var(--sage-soft);color:#2A4535;font-weight:500}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:#2F8F55;box-shadow:0 0 0 0 rgba(47,143,85,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,143,85,.45)}70%{box-shadow:0 0 0 8px rgba(47,143,85,0)}100%{box-shadow:0 0 0 0 rgba(47,143,85,0)}}
+.project-info p{margin:0}
+.intro{font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:var(--ink)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:8px}
+.project-body{border-top:1px solid var(--line);padding:clamp(28px,4vw,56px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px)}
+.project-body ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;font-size:15.5px;color:var(--slate)}
+.project-body li{padding-left:18px;position:relative}
+.project-body li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1.5px;background:var(--sage)}
+.project-body strong{color:var(--ink);font-weight:500}
+.stack{border-top:1px solid var(--line);padding:clamp(24px,3vw,40px) clamp(28px,4vw,56px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.stack h4{margin-bottom:10px;color:var(--slate);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{height:32px;display:inline-flex;align-items:center;padding:0 12px;border-radius:8px;background:var(--mist);border:1px solid var(--line);font-size:14px}
+.origin{font-size:14.5px;color:var(--slate);padding:0 clamp(28px,4vw,56px) clamp(28px,4vw,48px)}
+.origin a{color:var(--sage)}
+
+/* PROJECT: ENOSIS */
+.enosis{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.enosis-mark{background:#161A1B;color:#EDE7DF;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:clamp(300px,34vw,460px);position:relative;overflow:hidden}
+.enosis-mark::before{content:"";position:absolute;inset:auto -20% -40% -20%;height:70%;background:repeating-linear-gradient(90deg,rgba(237,231,223,.05) 0 2px,transparent 2px 22px);transform:skewX(-18deg)}
+.enosis-word{font-family:var(--sans);font-weight:600;font-size:clamp(38px,3.6vw,56px);letter-spacing:.12em;line-height:1;position:relative;text-transform:uppercase}
+.enosis-tag{position:relative;font-size:15px;color:#BDB5AA;max-width:22em}
+.enosis-info{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:28px}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.cols p{margin:0;font-size:15.5px;color:var(--slate)}
+
+.more{margin-top:clamp(24px,3vw,40px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;padding:clamp(24px,3vw,36px) clamp(28px,4vw,56px);border:1px dashed #BFC5BC;border-radius:24px}
+.more p{margin:0;font-family:var(--serif);font-size:clamp(24px,2.4vw,32px);line-height:1.15}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,80px)}
+.about .big{margin:0 0 24px;font-family:var(--serif);font-size:clamp(26px,3vw,40px);line-height:1.22}
+.about .body{margin:0;color:var(--slate);max-width:36em}
+.skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.skills h4{margin-bottom:6px;color:var(--slate);font-weight:500}
+.skills p{margin:0}
+
+/* CONTACT */
+.contact{margin-top:clamp(96px,12vw,160px);background:var(--ink);color:var(--mist);padding:clamp(72px,10vw,120px) 0 calc(36px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;background:url('/assets/hero.svg') center 80%/cover;opacity:.14;mix-blend-mode:luminosity}
+.contact .wrap{position:relative}
+.contact h2{font-size:clamp(48px,8vw,116px);max-width:11ch}
+.contact-row{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.contact p{color:#C5CBC6;max-width:28em;margin:24px 0 0}
+.btn-mist{background:var(--mist);color:var(--ink)}.btn-mist:hover{background:#fff}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:clamp(64px,8vw,104px);padding-top:24px;border-top:1px solid rgba(237,239,234,.16);font-size:14px;color:#AEB4AF}
+footer nav{display:flex;gap:28px}
+footer a{text-decoration:none;color:#E2E5E0}footer a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .project-top,.enosis{grid-template-columns:1fr}
+  .project-body{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .nav-links{display:none}
+  .burger{display:inline-flex}
+  .hero-grid{flex-direction:column;align-items:flex-start}
+  .cue{display:none}
+  .hero-actions .btn{flex:1 1 auto}
+  .project-body,.stack,.cols,.skills{grid-template-columns:1fr}
+  .app-nav{display:none}
+  .actions .btn{flex:1 1 100%}
+  .enosis-mark{min-height:240px}
+  footer nav{gap:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#projets">Aller au contenu</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Sven, retour en haut">Sven</a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#projets">Projets</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact">Contact</a>
+      <a class="pill" href="https://github.com/sven1204" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        GitHub
+      </a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="#projets">Projets</a>
+  <a href="#parcours">Parcours</a>
+  <a href="#contact">Contact</a>
+  <a href="https://github.com/sven1204" target="_blank" rel="noopener">GitHub</a>
+  <span class="small">Genève, Suisse</span>
+</div>
+
+<main id="top">
+  <section class="hero" aria-label="Accueil">
+    <div class="hero-media" id="heroMedia"><img src="/assets/hero.svg" alt="Chaîne de montagnes au lever du jour"></div>
+    <div class="hero-content">
+      <div class="wrap hero-grid">
+        <div>
+          <h1><span class="line"><span>Des applications web</span></span><span class="line"><span>pensées, codées</span></span><span class="line"><span>et mises en ligne.</span></span></h1>
+          <p class="hero-sub">Je suis Sven, développeur full-stack JavaScript à Genève. Je construis des produits complets, de l'interface au monitoring en production.</p>
+          <div class="hero-actions">
+            <a class="btn btn-light" href="#projets">Voir mes projets</a>
+            <a class="btn btn-ghost" href="https://github.com/sven1204" target="_blank" rel="noopener">Mon GitHub</a>
+          </div>
+        </div>
+        <a class="cue" href="#projets" aria-label="Défiler vers les projets"><span>Défiler</span><i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="projets">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker">Projets</p>
+          <h2>Ce que j'ai construit</h2>
+        </div>
+        <p class="lede">Deux projets menés de bout en bout : une application web en production et une marque e-commerce.</p>
+      </div>
+
+      <article class="project reveal" aria-labelledby="hive-title">
+        <div class="project-top">
+          <div class="stage">
+            <div class="browser" aria-hidden="true">
+              <div class="bar"><b></b><b></b><b></b><em>hive-app.ch</em></div>
+              <div class="app">
+                <div class="app-top">
+                  <div class="app-logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1FBF62" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 10.6C5 5.8 8.2 2 12 2s7 3.8 7.6 8.6l-2.6-1.8-2.5 1.8-2.5-1.8-2.5 1.8-2.5-1.8z"/><path d="M4.2 13.2l2.3-1.6 2.5 1.8 2.5-1.8 2.5 1.8 2.5-1.8 2.3 1.6C19.6 18.4 16.2 22 12 22s-7.6-3.6-7.8-8.8z"/></svg>Hive</div>
+                  <div class="app-nav"><span>Accueil</span><span>Projets</span><span>Messages</span><span>Profil</span></div>
+                </div>
+                <div>
+                  <span class="app-badge">Fais avancer ton projet</span>
+                  <div class="app-title">Trouve les bonnes personnes pour <span>faire naître ton projet</span></div>
+                </div>
+                <div class="app-cta"><span>Explorer les projets</span><span>Créer un projet</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="meta"><span class="live">En ligne</span><span>Application web, 2026</span></div>
+            <h3 id="hive-title">Hive</h3>
+            <p class="intro">Hive met en relation les porteurs de projets avec les personnes qui ont les compétences pour les faire avancer : un club de foot du dimanche, un site web, ou une idée qui attend la bonne équipe.</p>
+            <p style="color:var(--slate);font-size:15.5px">On explore les projets sur une carte, on propose ses compétences, on échange en direct avec le porteur du projet, ou on publie le sien en quelques minutes.</p>
+            <div class="actions">
+              <a class="btn btn-dark" href="https://hive-app.ch" target="_blank" rel="noopener">Ouvrir hive-app.ch</a>
+              <a class="btn btn-line" href="https://github.com/sven1204/Hive" target="_blank" rel="noopener">Voir le code</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div>
+            <h4>Fonctionnalités</h4>
+            <ul>
+              <li><strong>Carte interactive</strong> des projets, filtrables par compétences et par domaine</li>
+              <li><strong>Demandes pour rejoindre</strong> un projet, acceptées ou refusées par son porteur</li>
+              <li><strong>Messagerie en temps réel</strong> entre membres</li>
+              <li><strong>Profils publics et évaluations</strong> entre utilisateurs</li>
+              <li>Interface en français et en anglais, thème clair ou sombre</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Recommandations</h4>
+            <ul>
+              <li>Chaque projet est représenté par un <strong>vecteur de tags</strong></li>
+              <li>Le profil d'intérêt est construit à partir des <strong>10 derniers projets consultés</strong></li>
+              <li>Les projets sont classés par <strong>similarité cosinus</strong> avec ce profil, avec un garde-fou contre les vecteurs nuls</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Sécurité et exploitation</h4>
+            <ul>
+              <li>Authentification <strong>JWT</strong>, mots de passe hachés avec bcrypt</li>
+              <li>Réinitialisation du mot de passe par <strong>code envoyé par email</strong></li>
+              <li>Helmet, limitation de débit et filtre de langage sur les contenus</li>
+              <li><strong>Prometheus et Grafana</strong> : tableaux de bord backend, MongoDB et métier</li>
+              <li>Tests Jest et React Testing Library, environnement Docker Compose</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div><h4>Front-end</h4><div class="chips"><span>React</span><span>React Router</span><span>Leaflet</span><span>i18next</span><span>Axios</span></div></div>
+          <div><h4>Back-end</h4><div class="chips"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Mongoose</span><span>Socket.io</span><span>Nodemailer</span></div></div>
+          <div><h4>Infrastructure</h4><div class="chips"><span>Render</span><span>Docker</span><span>Prometheus</span><span>Grafana</span><span>Winston</span></div></div>
+        </div>
+        <p class="origin">Hive est l'évolution de Hatch, mon projet de diplôme, repensé et mis en production.</p>
+      </article>
+
+      <article class="enosis reveal" aria-labelledby="enosis-title">
+        <div class="enosis-mark">
+          <span class="enosis-word" aria-hidden="true">Enosis</span>
+          <p class="enosis-tag">Une marque de vêtements pensée pour celles et ceux qui s'entraînent en salle.</p>
+        </div>
+        <div class="enosis-info">
+          <div class="meta"><span>Marque e-commerce</span><span>Musculation</span></div>
+          <h3 id="enosis-title">Enosis</h3>
+          <p class="intro" style="margin:0">Ma marque de vêtements de musculation, que je développe de la boutique en ligne jusqu'à la stratégie de lancement.</p>
+          <div class="cols">
+            <div>
+              <h4>Concept</h4>
+              <p>Des vêtements taillés pour l'entraînement en musculation, avec une identité forte pour une communauté de pratiquants.</p>
+            </div>
+            <div>
+              <h4>Conception</h4>
+              <p>Boutique Shopify, parcours d'achat et emails automatisés : adresse sans réponse pour les commandes, adresse de la marque pour la relation client.</p>
+            </div>
+            <div>
+              <h4>Objectifs</h4>
+              <p>Lancer la marque sur TikTok avec des créateurs de la niche muscu, l'envoi de pièces en échange de contenu et les publications des premiers clients.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="more reveal">
+        <p>D'autres projets arrivent.</p>
+        <a class="btn btn-line" href="https://github.com/sven1204?tab=repositories" target="_blank" rel="noopener">Tous mes dépôts sur GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="parcours">
+    <div class="wrap about">
+      <div class="reveal">
+        <p class="kicker">Parcours</p>
+        <h2>Qui je suis</h2>
+      </div>
+      <div class="reveal">
+        <p class="big">Étudiant en informatique à Genève, je construis des applications web de bout en bout, du schéma de données jusqu'au monitoring en production.</p>
+        <p class="body">J'ai terminé mon diplôme avec Hatch, une plateforme collaborative en stack MERN, que j'ai ensuite fait évoluer en Hive. En parallèle, je développe Enosis, ma marque de vêtements, ce qui me confronte au côté produit et commercial d'un projet.</p>
+        <div class="skills">
+          <div><h4>Front-end</h4><p>React, JavaScript, CSS</p></div>
+          <div><h4>Back-end</h4><p>Node.js, Express, MongoDB, API REST</p></div>
+          <div><h4>Mise en production</h4><p>Docker, Render, Vercel, Prometheus, Grafana</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-row reveal">
+        <div>
+          <h2>Un projet, un stage, une idée&nbsp;?</h2>
+          <p>Je suis ouvert aux opportunités à Genève et en Suisse romande. Le plus simple pour me joindre : GitHub.</p>
+        </div>
+        <a class="btn btn-mist" href="https://github.com/sven1204" target="_blank" rel="noopener">Me trouver sur GitHub</a>
+      </div>
+      <footer>
+        <span>© <span id="year">2026</span> Sven, Genève</span>
+        <nav aria-label="Liens externes">
+          <a href="https://github.com/sven1204" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://hive-app.ch" target="_blank" rel="noopener">hive-app.ch</a>
+        </nav>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav'),burger=document.getElementById('burger'),menu=document.getElementById('mobile-menu'),media=document.getElementById('heroMedia');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  function setMenu(open){
+    document.body.classList.toggle('menu-open',open);
+    burger.setAttribute('aria-expanded',String(open));
+    burger.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+    menu.setAttribute('aria-hidden',String(!open));
+    document.body.style.overflow=open?'hidden':'';
+  }
+  burger.addEventListener('click',function(){setMenu(!document.body.classList.contains('menu-open'))});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('menu-open')){setMenu(false);burger.focus()}});
+
+  var ticking=false;
+  function onScroll(){
+    var y=window.scrollY;
+    nav.classList.toggle('scrolled',y>window.innerHeight*0.72);
+    if(!reduce&&y<window.innerHeight*1.2){media.style.transform='translate3d(0,'+(y*0.28)+'px,0)'}
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(onScroll);ticking=true}},{passive:true});
+  onScroll();
+
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.classList.add('in')})}
+})();
+</script>
+</body>
+</html>
