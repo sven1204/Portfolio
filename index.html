@@ -18,7 +18,6 @@
 :root{
   --mist:#EDEFEA; --paper:#F7F8F5; --ink:#1D2224; --slate:#4A5256; --line:#D6DAD3;
   --sage:#3E5E4B; --sage-soft:#DCE5DC; --dusk:#B98B6E;
-  --hive-bg:#14100C; --hive-accent:#EF9F27; --hive-cta:#ED93B1; --hive-cta-text:#4B1528;
   --serif:'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
   --sans:'Hanken Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --pad:clamp(20px, 5.5vw, 80px);
@@ -105,21 +104,10 @@ h4{margin:0 0 14px;font-size:15px;font-weight:600;letter-spacing:.01em}
 .stage{background:#E3E6E0;padding:clamp(20px,4vw,48px);display:flex;align-items:center}
 .browser{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(20,24,26,.55);border:1px solid rgba(0,0,0,.08);transition:transform .8s var(--ease)}
 .project:hover .browser{transform:translateY(-6px)}
-.bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#221C16}
-.bar b{width:10px;height:10px;border-radius:50%;background:#3E362D}
-.bar em{margin-left:12px;flex:1;height:22px;border-radius:6px;background:#2E271F;color:#A89E90;font-style:normal;font-size:12px;display:flex;align-items:center;padding-left:12px}
-.app{background:linear-gradient(135deg,#14100C,#1F1912,#100D09);color:#F5EFE4;padding:clamp(22px,4vw,48px);min-height:clamp(260px,32vw,400px);display:flex;flex-direction:column;justify-content:space-between;gap:24px;position:relative;overflow:hidden}
-.app::before{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(239,159,39,.22),rgba(239,159,39,0) 70%)}
-.app-top{display:flex;align-items:center;justify-content:space-between;position:relative}
-.app-logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
-.app-logo img{width:28px;height:28px}
-.app-nav{display:flex;gap:18px;font-size:13px;color:#B8AB95}
-.app-badge{display:inline-block;font-size:12px;color:#E67CA0;background:rgba(237,147,177,.12);border:1px solid rgba(237,147,177,.3);border-radius:999px;padding:4px 12px;margin-bottom:14px}
-.app-title{font-family:var(--sans);font-weight:600;font-size:clamp(22px,2.6vw,36px);line-height:1.12;letter-spacing:-.02em;max-width:17ch;position:relative}
-.app-title span{color:var(--hive-accent)}
-.app-cta{display:flex;gap:10px;position:relative}
-.app-cta span{font-size:12px;padding:9px 14px;border-radius:999px;background:var(--hive-cta);color:var(--hive-cta-text);font-weight:600}
-.app-cta span+span{background:transparent;color:#F5EFE4;border:1px solid #3A2F22}
+.bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#1A1D1C}
+.bar b{width:10px;height:10px;border-radius:50%;background:#353A38}
+.bar em{margin-left:12px;flex:1;height:22px;border-radius:6px;background:#242827;color:#9AA39F;font-style:normal;font-size:12px;display:flex;align-items:center;padding-left:12px}
+.app-shot{display:block;width:100%;height:auto;background:#121514}
 .project-info{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:22px}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;font-size:14px;color:var(--slate)}
 .live{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;background:var(--sage-soft);color:#2A4535;font-weight:500}
@@ -226,7 +214,6 @@ footer a{text-decoration:none;color:#E2E5E0}footer a:hover{text-decoration:under
   .timeline.in::before{transform:scaleY(1)}
   .step{padding-top:0}
   .step-dot{left:-40px;top:2px}
-  .app-nav{display:none}
   .actions .btn,.contact-actions .btn{flex:1 1 100%}
   .enosis-mark{min-height:240px;gap:32px}
   .enosis-logo{height:110px}
@@ -303,17 +290,7 @@ footer a{text-decoration:none;color:#E2E5E0}footer a:hover{text-decoration:under
           <div class="stage">
             <div class="browser" aria-hidden="true">
               <div class="bar"><b></b><b></b><b></b><em>hive-app.ch</em></div>
-              <div class="app">
-                <div class="app-top">
-                  <div class="app-logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 10.6C5 5.8 8.2 2 12 2s7 3.8 7.6 8.6l-2.6-1.8-2.5 1.8-2.5-1.8-2.5 1.8-2.5-1.8z"/><path d="M4.2 13.2l2.3-1.6 2.5 1.8 2.5-1.8 2.5 1.8 2.5-1.8 2.3 1.6C19.6 18.4 16.2 22 12 22s-7.6-3.6-7.8-8.8z"/></svg>Hive</div>
-                  <div class="app-nav"><span>Accueil</span><span>Projets</span><span>Messages</span><span>Profil</span></div>
-                </div>
-                <div>
-                  <span class="app-badge">Fais avancer ton projet</span>
-                  <div class="app-title">Trouve les bonnes personnes pour <span>faire naître ton projet</span></div>
-                </div>
-                <div class="app-cta"><span>Explorer les projets</span><span>Créer un projet</span></div>
-              </div>
+              <img class="app-shot" src="/assets/hive-screenshot.jpg" alt="" width="1440" height="900" loading="lazy">
             </div>
           </div>
           <div class="project-info">
